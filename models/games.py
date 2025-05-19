@@ -3,3 +3,10 @@ class Game():
     self.name = name
     self.category = category
     self.year = year
+
+  def to_dict(self):
+    return {
+      'name': self.name,
+      'category': self.category,
+      'year': self.year
+    }
