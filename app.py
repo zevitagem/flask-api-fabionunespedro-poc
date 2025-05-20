@@ -19,6 +19,9 @@ def create_game():
 
   return jsonify({'message': 'Game criado com sucesso!', 'game': game.to_dict()}), 201
 
+@app.route('/listall', methods = ['GET'])
+def get_all_games():
+   return jsonify([game.to_dict() for game in games])
 
 @app.route('/update/<string:id_name>', methods = ['PUT'])
 def update_game(id_name):   
@@ -54,9 +57,14 @@ if __name__ == '__main__':
 
 
 
+@app.route('/games/<name>', methods=['GET'])
+def get_game_name(name):
+    for game in games:
+        if game.name.lower() == name.lower():
+            return jsonify(game.to_dict())
+    return jsonify({'error': 'Game não encontrado'}), 404
 
 
 
 if __name__ == '__main__':
-  app.run(debug=True)
-
+    app.run(debug=True)
