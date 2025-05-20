@@ -16,5 +16,13 @@ def create_game():
 def get_all_games():
    return jsonify([game.to_dict() for game in games])
 
+@app.route('/games/<name>', methods=['GET'])
+def get_game_name(name):
+    for game in games:
+        if game.name.lower() == name.lower():
+            return jsonify(game.to_dict())
+    return jsonify({'error': 'Game não encontrado'}), 404
+
+
 if __name__ == '__main__':
     app.run(debug=True)
