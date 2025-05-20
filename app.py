@@ -36,6 +36,18 @@ def update_game(id_name):
   return jsonify({'message': 'Game não encontrado'}), 404
 
 
+@app.route('/delete/<string:id_name>', methods = ['DELETE'])
+def delete_game(id_name):
+  for i in range(len(games)):
+    if(games[i].name == id_name):
+      games.pop(i)
+      if len(games) != 0:
+        return jsonify({'message': 'O Game foi removido com sucesso', 'Game': games[i].to_dict()}), 200
+      else:
+        return jsonify({'message': 'O Game foi removido com sucesso, você não possui nenhum game em sua lista'}), 200
+  return jsonify({'message': 'Game não encontrado'}), 4
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
